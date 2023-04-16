@@ -1,4 +1,4 @@
-FROM mongo:bionic
+FROM mongo
 
 RUN apt-get update && apt-get -y install awscli
 ADD run.sh /run.sh
