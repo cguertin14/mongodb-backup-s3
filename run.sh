@@ -73,19 +73,11 @@ ln -s /listbackups.sh /usr/bin/listbackups
 
 touch /mongo_backup.log
 
-if [ -n "${INIT_BACKUP}" ]; then
-    echo "=> Create a backup on the startup"
-    /backup.sh
-fi
-
 if [ -n "${INIT_RESTORE}" ]; then
     echo "=> Restore store from lastest backup on startup"
     /restore.sh
 fi
 
-if [ -z "${DISABLE_CRON}" ]; then
-    echo "${CRON_TIME} . /root/project_env.sh; /backup.sh >> /mongo_backup.log 2>&1" > /crontab.conf
-    crontab  /crontab.conf
-    echo "=> Running cron job"
-    cron && tail -f /mongo_backup.log
-fi
+# Run backup script on startup.
+echo "=> Create a backup on the startup"
+/backup.sh
