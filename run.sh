@@ -18,6 +18,8 @@ S3PATH="s3://$BUCKET/$BACKUP_FOLDER"
 echo "=> MongoDB Host"
 echo $MONGODB_HOST
 echo $MONGODB_PORT_27017_TCP_ADDR
+echo "=> Env vars"
+printenv
 
 echo "=> Creating backup script"
 rm -f /backup.sh
