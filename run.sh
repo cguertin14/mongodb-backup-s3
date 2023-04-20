@@ -18,6 +18,10 @@ S3PATH="s3://$BUCKET/$BACKUP_FOLDER"
 # Export AWS Credentials into env file for cron job
 printenv | sed 's/^\([a-zA-Z0-9_]*\)=\(.*\)$/export \1="\2"/g' | grep -E "^export AWS" > /root/project_env.sh
 
+echo "=> MongoDB Host"
+echo $MONGODB_HOST
+echo $MONGODB_PORT_27017_TCP_ADDR
+
 echo "=> Creating backup script"
 rm -f /backup.sh
 cat <<EOF >> /backup.sh
@@ -79,5 +83,7 @@ if [ -n "${INIT_RESTORE}" ]; then
 fi
 
 # Run backup script on startup.
-echo "=> Create a backup on the startup"
-/backup.sh
+if [ -n "${INIT_BACKUP}" ]; then
+    echo "=> Create a backup on the startup"
+    /backup.sh
+fi
