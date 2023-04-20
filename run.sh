@@ -48,6 +48,10 @@ else
     RESTORE_ME=latest.dump.gz
 fi
 S3RESTORE=${S3PATH}\${RESTORE_ME}
+
+echo "=> Test S3 cp"
+aws s3 cp \${S3RESTORE} \${RESTORE_ME}
+
 echo "=> Restore database from \${RESTORE_ME}"
 if aws s3 cp \${S3RESTORE} \${RESTORE_ME} && mongorestore --host ${MONGODB_HOST} --port ${MONGODB_PORT} ${USER_STR}${PASS_STR}${DB_STR} --drop ${EXTRA_OPTS} --archive=\${RESTORE_ME} --gzip && rm \${RESTORE_ME}; then
     echo "   Restore succeeded"
