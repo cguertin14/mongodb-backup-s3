@@ -15,9 +15,6 @@ S3PATH="s3://$BUCKET/$BACKUP_FOLDER"
 [[ ( -n "${MONGODB_PASS}" ) ]] && PASS_STR=" --password '${MONGODB_PASS}'"
 [[ ( -n "${MONGODB_DB}" ) ]] && DB_STR=" --db ${MONGODB_DB}"
 
-# Export AWS Credentials into env file for cron job
-printenv | sed 's/^\([a-zA-Z0-9_]*\)=\(.*\)$/export \1="\2"/g' | grep -E "^export AWS" > /root/project_env.sh
-
 echo "=> MongoDB Host"
 echo $MONGODB_HOST
 echo $MONGODB_PORT_27017_TCP_ADDR
