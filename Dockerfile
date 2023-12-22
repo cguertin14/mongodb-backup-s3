@@ -1,4 +1,4 @@
-FROM arm64v8/mongo
+FROM mongo:7.0.4
 
 RUN apt-get update && apt install curl unzip ca-certificates -y
 RUN update-ca-certificates --fresh
